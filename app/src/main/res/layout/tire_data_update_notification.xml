@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/WorkState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="6dp"
+        android:text="右前:" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/low1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="低"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <TextView
+                android:id="@+id/high1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="高"
+                android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+            <TextView
+                android:id="@+id/leak1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="漏"
+                android:textColor="@android:color/holo_purple" />
+
+            <TextView
+                android:id="@+id/hot1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="热"
+                android:textColor="@android:color/holo_red_light" />
+
+            <TextView
+                android:id="@+id/lowBattery1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="电"
+                android:textColor="@android:color/holo_blue_dark" />
+
+            <TextView
+                android:id="@+id/tireData1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/low3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="低"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <TextView
+                android:id="@+id/high3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="高"
+                android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+            <TextView
+                android:id="@+id/leak3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="漏"
+                android:textColor="@android:color/holo_purple" />
+
+            <TextView
+                android:id="@+id/hot3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="热"
+                android:textColor="@android:color/holo_red_light" />
+
+            <TextView
+                android:id="@+id/lowBattery3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="电"
+                android:textColor="@android:color/holo_blue_dark" />
+
+            <TextView
+                android:id="@+id/tireData3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="3dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="3dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/low4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="低"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <TextView
+                android:id="@+id/high4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="高"
+                android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+            <TextView
+                android:id="@+id/leak4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="漏"
+                android:textColor="@android:color/holo_purple" />
+
+            <TextView
+                android:id="@+id/hot4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="热"
+                android:textColor="@android:color/holo_red_light" />
+
+            <TextView
+                android:id="@+id/lowBattery4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="电"
+                android:textColor="@android:color/holo_blue_dark" />
+
+            <TextView
+                android:id="@+id/tireData4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="3dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/low2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="低"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <TextView
+                android:id="@+id/high2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="高"
+                android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+            <TextView
+                android:id="@+id/leak2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="漏"
+                android:textColor="@android:color/holo_purple" />
+
+            <TextView
+                android:id="@+id/hot2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="热"
+                android:textColor="@android:color/holo_red_light" />
+
+            <TextView
+                android:id="@+id/lowBattery2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:text="电"
+                android:textColor="@android:color/holo_blue_dark" />
+
+            <TextView
+                android:id="@+id/tireData2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
