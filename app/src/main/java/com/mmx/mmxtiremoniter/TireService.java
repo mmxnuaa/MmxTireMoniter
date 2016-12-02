@@ -268,21 +268,35 @@ public class TireService extends Service {
 
         void SpeakOutTireData(boolean alarm) {
             String msg = "未知轮胎序号" + idx;
+//            switch (idx) {
+//                case 1:
+//                    msg = "左前... ";
+//                    break;
+//                case 2:
+//                    msg = "左后... ";
+//                    break;
+//                case 3:
+//                    msg = "右前... ";
+//                    break;
+//                case 4:
+//                    msg = "右后... ";
+//                    break;
+//            }
             switch (idx) {
                 case 1:
-                    msg = "左前... ";
-                    break;
-                case 2:
-                    msg = "左后... ";
-                    break;
-                case 3:
                     msg = "右前... ";
                     break;
-                case 4:
+                case 2:
+                    msg = "左前... ";
+                    break;
+                case 3:
                     msg = "右后... ";
                     break;
+                case 4:
+                    msg = "左后... ";
+                    break;
             }
-            msg += pressure + "巴," + temp + "度."
+            msg += String.format(Locale.CHINESE, "%.3f",pressure) + "巴," + temp + "度."
                     + (fastLeak ? "漏气," : "")
                     + (tooHigh ? "高压," : "")
                     + (tooLow ? "低压," : "")
