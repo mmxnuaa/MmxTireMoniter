@@ -75,6 +75,9 @@ public class TireService extends Service {
     private static final int MSG_BT_ON = 1001;
     private static final int MSG_BT_OFF = 1002;
     private static final int MSG_MANUAL_PAIR = 1003;
+    private static final int MSG_MANUAL_INIT = 1004;
+    private static final int MSG_MANUAL_READ = 1005;
+    private static final int MSG_READ_ALL = 1006;
     private static final int READ_0 = 0;
     private static final int READ_1 = 1;
     private static final int READ_2 = 2;
@@ -197,6 +200,7 @@ public class TireService extends Service {
         intent.putExtra(EXTRA_TIRE_DATA, td.ToMap());
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 
+        Log.d(TAG, "updateTireData: "+td);
         if (td.idx >= 1 && td.idx <= 4) {
             mNotifyView.setInt(mViewIdMap.get("low" + td.idx), "setVisibility", (td.tooLow ? View.VISIBLE : (td.tooHigh ? View.GONE : View.INVISIBLE)));
             mNotifyView.setInt(mViewIdMap.get("high" + td.idx), "setVisibility", (td.tooHigh ? View.VISIBLE : View.GONE));
@@ -213,10 +217,15 @@ public class TireService extends Service {
     private void procFrame(ArrayList<Byte> frame) {
         switch (frame.get(4)) {
             case 0x63:
-                procTireData(frame);
+                if (frame.size() == 14 || frame.size() == 15) {
+                    procTireData(frame);
+                }else {
+                    log(String.format(Locale.CHINESE, "Unknown Frame (%d) [%02X]", frame.size(), frame.get(4)) + Hex2Str(frame));
+                }
                 break;
             default:
 //                showMessage(String.format("Unknown Frame [%02X]", frame.get(4)) + Hex2Str(frame));
+                log(String.format(Locale.CHINESE, "Unknown Frame (%d) [%02X]", frame.size(), frame.get(4)) + Hex2Str(frame));
                 break;
         }
     }
@@ -340,14 +349,28 @@ public class TireService extends Service {
         boolean isValid() {
             return temp > -40;
         }
+
+        @Override
+        public String toString() {
+            return ToMap().toString();
+        }
     }
 
     private void procTireData(ArrayList<Byte> frame) {
-        String tireId = String.format("0x%02X%02X%02X", frame.get(6), frame.get(7), frame.get(8));
-        Byte idx = frame.get(5);
-        double Pressure = (frame.get(9) * 256 + frame.get(10)) * 0.025;
-        int temp = frame.get(11) - 50;
-        Byte flag = frame.get(12);
+        int baseIdx = 0;
+        if (frame.size() == 14) {
+            baseIdx = 0;
+        }else if (frame.size() == 15) {
+            baseIdx = 1;
+        }else {
+            log("ERROR: tire data len<13: "+Hex2Str(frame));
+            return;
+        }
+        String tireId = String.format("0x%02X%02X%02X", frame.get(6+baseIdx), frame.get(7+baseIdx), frame.get(8+baseIdx));
+        Byte idx = frame.get(5+baseIdx);
+        double Pressure = (frame.get(9+baseIdx) * 256 + frame.get(10+baseIdx)) * 0.025;
+        int temp = frame.get(11+baseIdx) - 50;
+        Byte flag = frame.get(12+baseIdx);
         boolean fastLeak = (flag & 0x3) == 1;
         boolean tooHigh = (flag & 0x10) == 0x10;
         boolean tooLow = (flag & 0x8) == 0x8;
@@ -425,6 +448,7 @@ public class TireService extends Service {
         if (mLogListener != null) {
             mLogListener.newLog(s);
         }
+        Log.d(TAG, s);
     }
 
     @Override
@@ -643,7 +667,8 @@ public class TireService extends Service {
                         mCmdRound = 0;
                         mTireDataPool.clear();
                         mAllFound = false;
-                        mHandler.sendEmptyMessageDelayed(READ_0, 500);
+//                        mHandler.sendEmptyMessageDelayed(READ_0, 500);
+                        mHandler.sendEmptyMessageDelayed(MSG_READ_ALL, 10*1000);
                     }
                 }
 
@@ -653,7 +678,7 @@ public class TireService extends Service {
                         characteristic) {
                     super.onCharacteristicChanged(gatt, characteristic);
                     byte[] values = characteristic.getValue();
-//                    Log.d(TAG, "onCharacteristicChanged: XXXX: " + characteristic.getUuid() + " value: " + Hex2Str(values));
+                    Log.d(TAG, "onCharacteristicChanged: XXXX: " + characteristic.getUuid() + " value: " + Hex2Str(values));
                     if (TX_CHAR_UUID.equals(characteristic.getUuid())) {
                         log("get: " + Hex2Str(values));
                         mDecoder.decode(values);
@@ -724,11 +749,23 @@ public class TireService extends Service {
                 case MSG_MANUAL_PAIR:
                     svr.sendManualPair(msg.arg1);
                     break;
+                case MSG_MANUAL_INIT:
+                    svr.sendManualInit();
+                    break;
+                case MSG_MANUAL_READ:
+                    svr.sendManualRead();
+                    break;
+                case MSG_READ_ALL:
+                    svr.sendManualRead();
+                    if (svr.mWorkState == WS_READY) {
+                        sendEmptyMessageDelayed(MSG_READ_ALL, 60 * 1000);
+                    }
+                    break;
             }
             if (msg.what >= READ_0 && msg.what <= READ_end) {
                 if (svr.mWorkState == WS_READY) {
-                    int roundGap = 60000;
-                    int cmdGap = 1500;
+                    int roundGap = 10000;
+                    int cmdGap = 500;
                     if (svr.mCmdRound < 10) {
                         roundGap = 10000;
                         cmdGap = 500;
@@ -777,12 +814,12 @@ public class TireService extends Service {
 
     public void writeRXCharacteristic(byte[] value) {
         if (mWorkState != WS_READY) {
-//            Log.d(TAG, "writeRXCharacteristic: WRONG STATE:" + mWorkState);
+            Log.d(TAG, "writeRXCharacteristic: WRONG STATE:" + mWorkState);
             return;
         }
         mRxChar.setValue(value);
         log("send: "+Hex2Str(value));
-//        Log.d(TAG, "write TXchar - status=" + mGatt.writeCharacteristic(mRxChar) + " " + Hex2Str(value));
+        Log.d(TAG, "write TXchar - status=" + mGatt.writeCharacteristic(mRxChar) + " " + Hex2Str(value));
     }
 
     @Override
@@ -882,6 +919,21 @@ public class TireService extends Service {
 
     void ManualPair(int index){
         mHandler.obtainMessage(MSG_MANUAL_PAIR, index, 0).sendToTarget();
+    }
+
+    void ManualInit(){
+        mHandler.sendEmptyMessage(MSG_MANUAL_INIT);
+    }
+
+    void ManualRead(){
+        mHandler.sendEmptyMessage(MSG_MANUAL_READ);
+    }
+
+    private void sendManualInit() {
+        writeRXCharacteristic(new byte[]{(byte) 0xaa, 0x41, (byte) 0xa1, 0x06, 0x11, (byte) 0xa3});
+    }
+    private void sendManualRead() {
+        writeRXCharacteristic(new byte[]{(byte) 0xaa, 0x41, (byte) 0xa1, 0x07, 0x63, 0x00, (byte) 0xf6});
     }
 
     private void sendManualPair(int index) {

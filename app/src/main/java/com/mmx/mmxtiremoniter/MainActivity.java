@@ -133,6 +133,24 @@ public class MainActivity extends AppCompatActivity implements TireService.Error
             }
         });
 
+        findViewById(R.id.btnInit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mTireService != null) {
+                    mTireService.ManualInit();
+                }
+            }
+        });
+        findViewById(R.id.btnRead).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mTireService != null) {
+                    mTireService.ManualRead();
+                }
+            }
+        });
+
+
         mErrorAdaptor = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1);
         mErrorList.setAdapter(mErrorAdaptor);
         mLogAdaptor = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1);
@@ -205,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements TireService.Error
 //    map.put("lowBattery", lowBattery);
 //    map.put("updateCnt", updateCnt);
     private void updateTireData(HashMap<String, Object> td) {
+        Log.d(TAG, "Got Tire Update:"+td);
         Integer idx = (Integer) td.get("idx");
         Double pressure = (Double) td.get("pressure");
         Integer temp = (Integer) td.get("temp");
