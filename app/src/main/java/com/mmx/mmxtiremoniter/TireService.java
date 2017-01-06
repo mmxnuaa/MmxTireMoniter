@@ -241,6 +241,7 @@ public class TireService extends Service {
         boolean lowBattery;
         int updateCnt;
         Date updateTime;
+        Date changeTime;
 
         TireData(int Idx, double pres, int Temp, boolean leak, boolean high, boolean low, boolean hot, boolean lowBat) {
             updateCnt = 0;
@@ -253,6 +254,7 @@ public class TireService extends Service {
             tooHot = hot;
             lowBattery = lowBat;
             updateTime = new Date();
+            changeTime = new Date();
             SpeakOutTireData();
         }
 
@@ -268,6 +270,7 @@ public class TireService extends Service {
             map.put("leak", fastLeak);
             map.put("updateCnt", updateCnt);
             map.put("updateTime", updateTime);
+            map.put("changeTime", changeTime);
             return map;
         }
 
@@ -338,6 +341,7 @@ public class TireService extends Service {
             updateTime = new Date();
             if (changed) {
                 SpeakOutTireData();
+                changeTime = new Date();
             }
             return changed;
         }
@@ -535,6 +539,8 @@ public class TireService extends Service {
 
         if (IsBtEnabled()) {
             DoBTConnect();
+        }else {
+            TurnOnBT();
         }
     }
 
@@ -575,6 +581,9 @@ public class TireService extends Service {
             mGatt = null;
         }
         mRxChar = null;
+        if (mBluetoothAdapter != null) {
+            mBluetoothAdapter.disable();
+        }
         mBluetoothAdapter = null;
         if (tts != null) {
             tts.speak("胎压监测服务退出", TextToSpeech.QUEUE_FLUSH, null, null);
@@ -592,6 +601,17 @@ public class TireService extends Service {
             mBluetoothAdapter = bluetoothManager.getAdapter();
         }
         return !(mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled());
+    }
+
+    void TurnOnBT() {
+        final BluetoothManager bluetoothManager =
+                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        if (mBluetoothAdapter == null) {
+            mBluetoothAdapter = bluetoothManager.getAdapter();
+        }
+        if (mBluetoothAdapter != null) {
+            mBluetoothAdapter.enable();
+        }
     }
 
     void DoBTConnect() {

@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="低压"
+                android:text="低"
                 android:textColor="@android:color/holo_red_dark" />
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="高压"
+                android:text="高"
                 android:textColor="?android:attr/colorMultiSelectHighlight" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="漏气"
+                android:text="漏"
                 android:textColor="@android:color/holo_purple" />
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="过热"
+                android:text="热"
                 android:textColor="@android:color/holo_red_light" />
 
             <TextView
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="低压"
+                android:text="低"
                 android:textColor="@android:color/holo_red_dark" />
 
             <TextView
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="高压"
+                android:text="高"
                 android:textColor="?android:attr/colorMultiSelectHighlight" />
 
             <TextView
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="漏气"
+                android:text="漏"
                 android:textColor="@android:color/holo_purple" />
 
             <TextView
@@ -131,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="过热"
+                android:text="热"
                 android:textColor="@android:color/holo_red_light" />
 
             <TextView
@@ -169,7 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="低压"
+                android:text="低"
                 android:textColor="@android:color/holo_red_dark" />
 
             <TextView
@@ -177,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="高压"
+                android:text="高"
                 android:textColor="?android:attr/colorMultiSelectHighlight" />
 
             <TextView
@@ -185,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="漏气"
+                android:text="漏"
                 android:textColor="@android:color/holo_purple" />
 
             <TextView
@@ -193,7 +193,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="过热"
+                android:text="热"
                 android:textColor="@android:color/holo_red_light" />
 
             <TextView
@@ -232,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="低压"
+                android:text="低"
                 android:textColor="@android:color/holo_red_dark" />
 
             <TextView
@@ -240,7 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="高压"
+                android:text="高"
                 android:textColor="?android:attr/colorMultiSelectHighlight" />
 
             <TextView
@@ -248,7 +248,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="漏气"
+                android:text="漏"
                 android:textColor="@android:color/holo_purple" />
 
             <TextView
@@ -256,7 +256,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="3dp"
-                android:text="过热"
+                android:text="热"
                 android:textColor="@android:color/holo_red_light" />
 
             <TextView

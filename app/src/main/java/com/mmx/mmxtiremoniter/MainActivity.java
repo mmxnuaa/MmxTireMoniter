@@ -1,7 +1,5 @@
 package com.mmx.mmxtiremoniter;
 
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -156,10 +154,10 @@ public class MainActivity extends AppCompatActivity implements TireService.Error
         mLogAdaptor = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1);
         mLogList.setAdapter(mLogAdaptor);
 
-        if (!IsBtEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
+//        if (!IsBtEnabled()) {
+//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+//        }
     }
 
     @Override
@@ -174,12 +172,12 @@ public class MainActivity extends AppCompatActivity implements TireService.Error
         }
     }
 
-    boolean IsBtEnabled() {
-        final BluetoothManager bluetoothManager =
-                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        BluetoothAdapter adapter = bluetoothManager.getAdapter();
-        return (adapter != null && adapter.isEnabled());
-    }
+//    boolean IsBtEnabled() {
+//        final BluetoothManager bluetoothManager =
+//                (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+//        BluetoothAdapter adapter = bluetoothManager.getAdapter();
+//        return (adapter != null && adapter.isEnabled());
+//    }
 
     @Override
     protected void onDestroy() {
@@ -234,6 +232,7 @@ public class MainActivity extends AppCompatActivity implements TireService.Error
         Boolean lowBattery = (Boolean) td.get("lowBattery");
         Integer updateCnt = (Integer) td.get("updateCnt");
         Date updateTime = (Date) td.get("updateTime");
+        Date changeTime = (Date) td.get("changeTime");
         if (idx != null && idx >= 1 && idx <= 4) {
             mTireDataViews.get("low" + idx).setVisibility(low ? View.VISIBLE : View.INVISIBLE);
             mTireDataViews.get("high" + idx).setVisibility(high ? View.VISIBLE : View.INVISIBLE);
@@ -241,8 +240,8 @@ public class MainActivity extends AppCompatActivity implements TireService.Error
             mTireDataViews.get("leak" + idx).setVisibility(leak ? View.VISIBLE : View.INVISIBLE);
             mTireDataViews.get("lowBattery" + idx).setVisibility(lowBattery ? View.VISIBLE : View.INVISIBLE);
             SimpleDateFormat df = new SimpleDateFormat("mm:ss", Locale.CHINESE);
-            ((TextView) mTireDataViews.get("data" + idx)).setText(String.format(Locale.CHINESE, "% 5d [%s]: %2.3fbar  % 2d度",
-                    updateCnt, df.format(updateTime), pressure, temp));
+            ((TextView) mTireDataViews.get("data" + idx)).setText(String.format(Locale.CHINESE, "% 5d [%s/%s]: %2.3fbar  % 2d度",
+                    updateCnt, df.format(updateTime), df.format(changeTime), pressure, temp));
         }
     }
 
